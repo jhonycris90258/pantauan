@@ -20,16 +20,8 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Generate Gradle Wrapper
-      run: |
-        gradle wrapper --gradle-version 8.0
-        chmod +x gradlew
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
 
-    - name: Build with Android Project Actions
-      uses: reactivecircus/android-emulator-runner@v2
-      with:
-        api-level: 29
-        target: default
-        arch: x86_64
-        disable-animations: true
-        script: ./gradlew assembleDebug
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug
