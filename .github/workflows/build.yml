@@ -22,9 +22,8 @@ jobs:
 
     - name: Build with Gradle
       run: |
-        echo "include ':app'" > settings.gradle
         chmod +x gradlew || true
-        ./gradlew assembleDebug || gradle assembleDebug
+        ./gradlew assembleDebug
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
