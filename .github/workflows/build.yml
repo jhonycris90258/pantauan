@@ -20,6 +20,11 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
+    - name: Generate Gradle Wrapper
+      run: |
+        gradle wrapper --gradle-version 8.0
+        chmod +x gradlew
+
     - name: Build with Android Project Actions
       uses: reactivecircus/android-emulator-runner@v2
       with:
