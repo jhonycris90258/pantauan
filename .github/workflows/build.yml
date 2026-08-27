@@ -20,13 +20,19 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Download Android Gradle Wrapper (Gradlew)
+    - name: Grant execute permission for gradlew
       run: |
-        gradle wrapper --gradle-version 7.5
-        chmod +x gradlew
+        echo "include ':app'" > settings.gradle
+        gradle -v
 
-    - name: Build with Gradle
-      run: ./gradlew assembleDebug
+    - name: Build with Gradle using custom action
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 29
+        target: default
+        arch: x86_64
+        disable-animations: true
+        script: ./gradlew assembleDebug
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
