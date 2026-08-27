@@ -20,21 +20,13 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Grant execute permission for gradlew
+    - name: Build with Gradle
       run: |
         echo "include ':app'" > settings.gradle
-        gradle -v
+        chmod +x gradlew || true
+        ./gradlew assembleDebug || gradle assembleDebug
 
-    - name: Build with Gradle using custom action
-      uses: reactivecircus/android-emulator-runner@v2
-      with:
-        api-level: 29
-        target: default
-        arch: x86_64
-        disable-animations: true
-        script: ./gradlew assembleDebug
-
-    - name: Upload APK Artifact
+    - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
